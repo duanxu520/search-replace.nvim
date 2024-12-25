@@ -3,7 +3,7 @@ local M = {}
 local util = require("search-replace.util")
 local config = require("search-replace.config")
 
-M.search_replace = function(pattern)
+M.search_replace = function(pattern, wholeWord)
 	local shift = 0
 
 	if string.len(pattern) == 0 then
@@ -11,13 +11,19 @@ M.search_replace = function(pattern)
 	else
 		shift = 1
 	end
-
+	local sCall = ':call feedkeys(":%s/'
+	local s = "//"
+	if wholeWord then
+		sCall = ':call feedkeys(":%s/\\<'
+		s = "\\>//"
+	end
+	
 	local left_keypresses =
 		string.rep("\\<Left>", string.len(config.options["default_replace_single_buffer_options"]) + shift)
 	vim.cmd(
-		':call feedkeys(":%s/'
+		sCall
 			.. util.double_escape(pattern)
-			.. "//"
+			.. s
 			.. config.options["default_replace_single_buffer_options"]
 			.. left_keypresses
 			.. '")'
@@ -50,6 +56,10 @@ end
 
 M.open = function()
 	M.search_replace("")
+end
+
+M.wword = function()
+	M.search_replace(vim.fn.expand("<cword>"), true)
 end
 
 M.cword = function()
