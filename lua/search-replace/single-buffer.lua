@@ -14,8 +14,8 @@ M.search_replace = function(pattern, wholeWord)
 	local sCall = ':call feedkeys(":%s/'
 	local s = "//"
 	if wholeWord then
-		sCall = ':call feedkeys(":%s/\\<'
-		s = "\\>//"
+		sCall = ':call feedkeys(":%s/\\\\<'
+		s = "\\\\>//"
 	end
 	
 	local left_keypresses =
