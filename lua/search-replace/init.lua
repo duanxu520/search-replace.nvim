@@ -15,7 +15,7 @@ local function setup_commands_single_buffer()
 	cmd("SearchReplaceSingleBufferCWORD", single_buffer.cWORD, {})
 	cmd("SearchReplaceSingleBufferCExpr", single_buffer.cexpr, {})
 	cmd("SearchReplaceSingleBufferCFile", single_buffer.cfile, {})
-
+	cmd("SearchReplaceSingleBufferWWord", single_buffer.wword, {})
 	-- NOTE:
 	-- visual selection search/replace - only available via a key binding/direct
 	-- call since it's not possible to use leader key bindings in visual mode
